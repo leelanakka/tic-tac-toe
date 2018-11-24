@@ -2,7 +2,8 @@ const {equal,deepEqual} = require('assert');
 const {
   welcomeNote,
   deleteElementByIndex,
-  generateBoard
+  generateBoard,
+  createArray
 } = require('../src/library.js');
 
 describe('welcome note',function(){
@@ -57,3 +58,21 @@ describe('generateBoard',()=>{
     deepEqual(generateBoard([[],[1,2,3,4,5,6,7,8,9]]),expectedOutput);
   });
 });
+
+describe("createArray",function(){
+  it("should create an empty array",()=>{
+    deepEqual(createArray(0),[]);
+    deepEqual(createArray(0,1),[]);
+  });
+  it("should create single element array",()=>{
+    deepEqual(createArray(1),[""]);
+    deepEqual(createArray(1,1),[1]);
+  });
+  it("should create multi-element array",()=>{
+    deepEqual(createArray(2),["",""]);
+    deepEqual(createArray(2,"hello"),["hello","hello"]);
+    deepEqual(createArray(3,1),[1,1,1]);
+    deepEqual(createArray(6," "),[" "," "," "," "," "," "]);
+  });
+});
+

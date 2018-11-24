@@ -13,6 +13,10 @@ const welcomeNote = function(){
   return "welcome to TIC TAC TOE ";
 }
 
+const createArray = function(size,text=""){
+  return new Array(size).fill(text)
+}
+
 const readPlayerNames  = function() {
   let player1 = read("Please enter player1 name: ")
   let player2 = read("Please enter player2 name: ")
@@ -20,14 +24,14 @@ const readPlayerNames  = function() {
 }
 
 const generateBoard = function(moves){
-  let list = new Array(9).fill(" ");
+  let list = createArray(9," ");
   let turn = ["X","O"];
   for(let index = 0; index < 2  ; index++){
    for(let position = 0; position < moves[index].length; position++){
      list[moves[index][position]-1] = turn[index];
    }
   }
-  let line = new Array(13).fill("-").join("");
+  let line = createArray(13,"-").join("");
   let board = line + "\n";
   board += "| "+list[0]+" | "+list[1]+" | "+list[2]+" |\n"+line+"\n";
   board += "| "+list[3]+" | "+list[4]+" | "+list[5]+" |\n"+line+"\n";
@@ -58,5 +62,6 @@ module.exports = {
   readPlayerNames,
   startGame,
   deleteElementByIndex,
-  generateBoard
+  generateBoard,
+  createArray
 };
