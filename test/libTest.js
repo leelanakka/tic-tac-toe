@@ -5,7 +5,8 @@ const {
   generateBoard,
   createArray,
   printBoard,
-  isSubset
+  isSubset,
+  isWin
 } = require('../src/library.js');
 
 describe('welcome note',function(){
@@ -107,5 +108,21 @@ describe('isSubset',function(){
     deepEqual(isSubset([1,2,3],[4,5]),false);
     deepEqual(isSubset([1,2],[-1,-2]),false);
     deepEqual(isSubset([1,2,3],[1,2]),true);
+  });
+});
+
+describe('isWin',()=>{
+  it('should work empty array',()=>{
+    deepEqual(isWin([]),false);
+  });
+  it('should work single element array',()=>{
+    deepEqual(isWin([1]),false);
+    deepEqual(isWin([0]),false);
+  });
+  it('should work for multi element array',()=>{
+    deepEqual(isWin([1,2,3]),true);
+    deepEqual(isWin([7,5,3]),true);
+    deepEqual(isWin([7,2,5,3]),true);
+    deepEqual(isWin([7,2,4,3]),false);
   });
 });
