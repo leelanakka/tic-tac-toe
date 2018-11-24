@@ -23,6 +23,12 @@ const readPlayerNames  = function() {
   return [player1,player2];
 }
 
+const isSubset = function (set1,set2) {
+  return set2.every(function (element) {
+    return set1.includes(element);
+  })
+}
+
 const printBoard = function(board){
   let line = createArray(board.length*4+1,"-").join("");
   let prBoard = "";
@@ -68,5 +74,6 @@ module.exports = {
   deleteElementByIndex,
   generateBoard,
   createArray,
-  printBoard
+  printBoard,
+  isSubset
 };

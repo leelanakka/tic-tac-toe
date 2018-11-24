@@ -4,7 +4,8 @@ const {
   deleteElementByIndex,
   generateBoard,
   createArray,
-  printBoard
+  printBoard,
+  isSubset
 } = require('../src/library.js');
 
 describe('welcome note',function(){
@@ -90,5 +91,21 @@ describe('generateBoard',()=>{
     deepEqual(generateBoard([[1,3],[8,9]]),[["X"," ","X"],[" "," "," "],[" ","O","O"]]);
     deepEqual(generateBoard([[1],[8,9]]),[["X"," "," "],[" "," "," "],[" ","O","O"]]);
     deepEqual(generateBoard([[1,2,3,4],[4,5,6,7,8]]),[["X","X","X"],["O","O","O"],["O","O"," "]]);
+  });
+});
+describe('isSubset',function(){
+  it('should work for empty array',()=>{
+    deepEqual(isSubset([],[]),true);
+    deepEqual(isSubset([],[0]),false);
+  });
+  it('should work for single element array',()=>{
+    deepEqual(isSubset([0],[]),true);
+    deepEqual(isSubset([1],[1]),true);
+  });
+  it('should work for multi element array',()=>{ 
+    deepEqual(isSubset([1,2],[2]),true);
+    deepEqual(isSubset([1,2,3],[4,5]),false);
+    deepEqual(isSubset([1,2],[-1,-2]),false);
+    deepEqual(isSubset([1,2,3],[1,2]),true);
   });
 });
