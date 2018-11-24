@@ -1,5 +1,7 @@
-const { welcomeNote } = require("./src/library.js");
+const { 
+  startGame
+} = require("./src/library.js");
 const main = function(){
-  console.log(welcomeNote());
+  startGame();
 }
 main();
