@@ -1,7 +1,8 @@
 const {equal,deepEqual} = require('assert');
 const {
   welcomeNote,
-  deleteElementByIndex
+  deleteElementByIndex,
+  generateBoard
 } = require('../src/library.js');
 
 describe('welcome note',function(){
@@ -24,5 +25,35 @@ describe('deleteElementByIndex',()=>{
   it('should work for more than single element array',()=>{
     deepEqual(deleteElementByIndex([1,2,3,4,5],2),[1,2,4,5]);
     deepEqual(deleteElementByIndex(["sai","deepika","leela","durga","prasanth"],2),["sai","deepika","durga","prasanth"]);
+  });
+});
+
+describe('generateBoard',()=>{
+  let line = new Array(13).fill("-").join("");
+  it('should generate empty board',()=>{
+    let expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[],[]]),expectedOutput);
+  });
+  it('should generate single element filled board',()=>{
+    let expectedOutput = line+"\n"+"| X |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[1],[]]),expectedOutput);
+    expectedOutput = line+"\n"+"| O |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[],[1]]),expectedOutput);
+    expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   | O |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[],[6]]),expectedOutput);
+    expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   | X |   |"+"\n"+line
+    deepEqual(generateBoard([[8],[]]),expectedOutput);
+  });
+  it('should generate multi element filled board',()=>{
+    let expectedOutput = line+"\n"+"| X | O |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[1],[2]]),expectedOutput);
+    expectedOutput = line+"\n"+"| O |   |   |"+"\n"+line+"\n"+"|   | X |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[5],[1]]),expectedOutput);
+    expectedOutput = line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
+    deepEqual(generateBoard([[4,5,6],[1,2,3]]),expectedOutput);
+    expectedOutput = line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line
+    deepEqual(generateBoard([[1,2,3,4,5,6,7,8,9],[]]),expectedOutput);
+    expectedOutput = line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| O | O | O |"+"\n"+line
+    deepEqual(generateBoard([[],[1,2,3,4,5,6,7,8,9]]),expectedOutput);
   });
 });
