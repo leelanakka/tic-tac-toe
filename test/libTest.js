@@ -3,7 +3,8 @@ const {
   welcomeNote,
   deleteElementByIndex,
   generateBoard,
-  createArray
+  createArray,
+  printBoard
 } = require('../src/library.js');
 
 describe('welcome note',function(){
@@ -29,33 +30,32 @@ describe('deleteElementByIndex',()=>{
   });
 });
 
-describe('generateBoard',()=>{
+describe('printBoard',()=>{
   let line = new Array(13).fill("-").join("");
   it('should generate empty board',()=>{
-    let expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[],[]]),expectedOutput);
+    deepEqual(printBoard([]),"-");
   });
   it('should generate single element filled board',()=>{
     let expectedOutput = line+"\n"+"| X |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[1],[]]),expectedOutput);
+    deepEqual(printBoard([["X"," "," "],[" "," "," "],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"| O |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[],[1]]),expectedOutput);
+    deepEqual(printBoard([["O"," "," "],[" "," "," "],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   | O |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[],[6]]),expectedOutput);
+    deepEqual(printBoard([[" "," "," "],[" "," ","O"],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   | X |   |"+"\n"+line
-    deepEqual(generateBoard([[8],[]]),expectedOutput);
+    deepEqual(printBoard([[" "," "," "],[" "," "," "],[" ","X"," "]]),expectedOutput);
   });
   it('should generate multi element filled board',()=>{
     let expectedOutput = line+"\n"+"| X | O |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[1],[2]]),expectedOutput);
+    deepEqual(printBoard([["X","O"," "],[" "," "," "],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"| O |   |   |"+"\n"+line+"\n"+"|   | X |   |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[5],[1]]),expectedOutput);
+    deepEqual(printBoard([["O"," "," "],[" ","X"," "],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"|   |   |   |"+"\n"+line
-    deepEqual(generateBoard([[4,5,6],[1,2,3]]),expectedOutput);
+    deepEqual(printBoard([["O","O","O"],["X","X","X"],[" "," "," "]]),expectedOutput);
     expectedOutput = line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line+"\n"+"| X | X | X |"+"\n"+line
-    deepEqual(generateBoard([[1,2,3,4,5,6,7,8,9],[]]),expectedOutput);
+    deepEqual(printBoard([["X","X","X"],["X","X","X"],["X","X","X"]]),expectedOutput);
     expectedOutput = line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| O | O | O |"+"\n"+line+"\n"+"| O | O | O |"+"\n"+line
-    deepEqual(generateBoard([[],[1,2,3,4,5,6,7,8,9]]),expectedOutput);
+    deepEqual(printBoard([["O","O","O"],["O","O","O"],["O","O","O"]]),expectedOutput);
   });
 });
 
@@ -76,3 +76,19 @@ describe("createArray",function(){
   });
 });
 
+describe('generateBoard',()=>{
+  it('should generate empty board',()=>{
+    deepEqual(generateBoard([[],[]]),[[" "," "," "],[" "," "," "],[" "," "," "]]);
+  });
+  it('should generate board with one element',()=>{
+    deepEqual(generateBoard([[1],[]]),[["X"," "," "],[" "," "," "],[" "," "," "]]);
+    deepEqual(generateBoard([[5],[]]),[[" "," "," "],[" ","X"," "],[" "," "," "]]);
+    deepEqual(generateBoard([[],[2]]),[[" ","O"," "],[" "," "," "],[" "," "," "]]);
+    deepEqual(generateBoard([[],[9]]),[[" "," "," "],[" "," "," "],[" "," ","O"]]);
+  });
+  it('should generate board with multiple elements',()=>{
+    deepEqual(generateBoard([[1,3],[8,9]]),[["X"," ","X"],[" "," "," "],[" ","O","O"]]);
+    deepEqual(generateBoard([[1],[8,9]]),[["X"," "," "],[" "," "," "],[" ","O","O"]]);
+    deepEqual(generateBoard([[1,2,3,4],[4,5,6,7,8]]),[["X","X","X"],["O","O","O"],["O","O"," "]]);
+  });
+});

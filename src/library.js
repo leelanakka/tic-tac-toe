@@ -23,20 +23,24 @@ const readPlayerNames  = function() {
   return [player1,player2];
 }
 
+const printBoard = function(board){
+  let line = createArray(board.length*4+1,"-").join("");
+  let prBoard = "";
+  for(let i of board){
+    prBoard += line + "\n|" + i.map((x) => " "+x+" |").join("")+"\n";
+  }
+  return prBoard+line;
+}
+
 const generateBoard = function(moves){
-  let list = createArray(9," ");
+  let board = createArray(9," ");
   let turn = ["X","O"];
   for(let index = 0; index < 2  ; index++){
    for(let position = 0; position < moves[index].length; position++){
-     list[moves[index][position]-1] = turn[index];
+     board[moves[index][position]-1] = turn[index];
    }
   }
-  let line = createArray(13,"-").join("");
-  let board = line + "\n";
-  board += "| "+list[0]+" | "+list[1]+" | "+list[2]+" |\n"+line+"\n";
-  board += "| "+list[3]+" | "+list[4]+" | "+list[5]+" |\n"+line+"\n";
-  board += "| "+list[6]+" | "+list[7]+" | "+list[8]+" |\n"+line;
-  return board;
+  return [board.slice(0,3),board.slice(3,6),board.slice(6,9)]
 }
 
 const turnChanger  = function(players){
@@ -51,7 +55,7 @@ const turnChanger  = function(players){
     }else{
       moves[index%2].push(+move);
       inputs = deleteElementByIndex(inputs,inputs.indexOf(+move));
-      console.log(generateBoard(moves));
+      console.log(printBoard(generateBoard(moves)));
     }
   };
   return moves;
@@ -63,5 +67,6 @@ module.exports = {
   startGame,
   deleteElementByIndex,
   generateBoard,
-  createArray
+  createArray,
+  printBoard
 };
