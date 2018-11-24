@@ -5,6 +5,10 @@ const startGame = function(){
   let players = readPlayerNames();
   console.log(turnChanger(players)); 
 }
+const deleteElementByIndex = function(list,index){
+  return list.slice(0,index).concat(list.slice(index+1));
+}
+
 const welcomeNote = function(){
   return "welcome to TIC TAC TOE ";
 }
@@ -25,7 +29,8 @@ const turnChanger  = function(players){
       console.log("invalid input give input in this :",inputs);
       index--;
     }else{
-      moves[index%2].push(move);
+      moves[index%2].push(+move);
+      inputs = deleteElementByIndex(inputs,inputs.indexOf(+move));
     }
   };
   return moves;
@@ -34,5 +39,6 @@ const turnChanger  = function(players){
 module.exports = { 
   welcomeNote,
   readPlayerNames,
-  startGame
+  startGame,
+  deleteElementByIndex
 };
